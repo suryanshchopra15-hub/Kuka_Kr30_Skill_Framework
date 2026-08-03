@@ -1,0 +1,26 @@
+# ROS 2 / Colcon
+build/
+install/
+log/
+COLCON_IGNORE
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDEs
+.vscode/
+.idea/
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+
+# Generated Graphviz source
+*.gv
+
+# Operating system
+.DS_Store
+Thumbs.db
