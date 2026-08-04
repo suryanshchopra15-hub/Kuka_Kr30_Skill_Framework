@@ -2,10 +2,6 @@
 
 This repository contains support packages that can be used with real KUKA robots as well as with simulations.
 
-ROS2 Distro | Branch | Github CI
------------- | -------------- | --------------
-**Jazzy** | [`master`](https://github.com/kroshu/kuka_robot_descriptions/tree/master) | [![Build Status](https://github.com/kroshu/kuka_robot_descriptions/actions/workflows/industrial_ci.yml/badge.svg?branch=master)](https://github.com/kroshu/kuka_robot_descriptions/actions)
-**Humble** | [`humble`](https://github.com/kroshu/kuka_robot_descriptions/tree/humble) | [![Build Status](https://github.com/kroshu/kuka_robot_descriptions/actions/workflows/industrial_ci_humble.yml/badge.svg?branch=humble)](https://github.com/kroshu/kuka_robot_descriptions/actions)
 
 ## What is included?
 
@@ -120,7 +116,7 @@ Without any external axes, the end of the URDF looks as follows (with _robotfami
 </joint>
 ```
 
-With an external axis (KL100-2 in this example):
+With an external axis (KR30 in this example):
 
 ```xml
 <xacro:kuka_robotfamily_ros2_control ...>
@@ -133,20 +129,20 @@ With an external axis (KL100-2 in this example):
 <!-- world link -->
 <link name="world"/>
 
-<!-- kl100_2 links -->
-<xacro:kl100_2_links/>
+<!-- kr30 links -->
+<xacro:kr30_links/>
 
 <xacro:robotmodel prefix="$(arg prefix)" package_name="kuka_robotfamily_support"/>
 
-<!-- kl100_2 joints -->
-<xacro:kl100_2_joints robot_base_link="$(arg prefix)base_link">
+<!-- kr30 joints -->
+<xacro:kr30_joints robot_base_link="$(arg prefix)base_link">
   <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg roll) $(arg pitch) $(arg yaw)"/>
-</xacro:kl100_2_joints>
+</xacro:kr30_joints>
 ```
 
 The order of these tags is important to produce a valid URDF.
 
-To support different external axis types (prismatic and revolute), custom `ros2_control` joint parameters were introduced: `type` and `is_external`. An example can be found in [`kl_ros2_control_macro.xacro`](./kuka_kl_support/urdf/kl_ros2_control_macro.xacro). These parameters are optional; if omitted, the driver assumes revolute internal joints.
+To support different external axis types (prismatic and revolute), custom `ros2_control` joint parameters were introduced: `type` and `is_external`. An example can be found in [`kr_ros2_control_macro.xacro`](./kuka_kl_support/urdf/kl_ros2_control_macro.xacro). These parameters are optional; if omitted, the driver assumes revolute internal joints.
 
 Although these parameters increase configuration complexity, they are necessary. Without them, the driver could not correctly distinguish between internal and external joints, which is critical for the RobotSensorInterface option package. They also allow the driver to convert between ROS 2 units (meters/radians) and KUKA units (millimetres/degrees).
 
@@ -207,17 +203,6 @@ ros2 launch kuka_kr_moveit_config moveit_planning_fake_hardware.launch.py
 
 Matching `robot_model` and `robot_family` arguments can be added after the command (e.g. `robot_model:=kr16_r2010_2 robot_family:=cybertech`). The default robot model is `kr6_r700_sixx`
 
-### LBR iiwa robots (Sunrise)
-
-```bash
-ros2 launch kuka_lbr_iisy_moveit_config moveit_planning_fake_hardware.launch.py
-```
-
-### LBR iisy robots (iiQKA)
-
-```bash
-ros2 launch kuka_lbr_iiwa_moveit_config moveit_planning_fake_hardware.launch.py
-```
 
 A `robot_model` argument can be added after the command (e.g. `robot_model:=lbr_iisy11_r1300`). The default robot model is `lbr_iisy3_r760`
 
@@ -225,10 +210,10 @@ These launch files are not using the actual driver implementation, they only sta
 
 ## Starting the move group server with Gazebo
 
-It is also possible to plan with moveit for robots spawned in Gazebo, first the `gazebo_startup` launch file has to be started. By default, the launch file will start the gazebo server with UI and spawn the `lbr_iisy3_r760` robot model with the `mode` parameter set to `gazebo`. To launch Gazebo with a different robot model and family (KR 210 R2700-2 in the example), the following command can be used:
+It is also possible to plan with moveit for robots spawned in Gazebo, first the `gazebo_startup` launch file has to be started. By default, the launch file will start the gazebo server with UI and spawn the `kr30_r2100` robot model with the `mode` parameter set to `gazebo`. To launch Gazebo with a different robot model and family (KR 210 R2700-2 in the example), the following command can be used:
 
 ```bash
-ros2 launch kuka_gazebo gazebo_startup.launch.py robot_model:=kr210_r2700_2 robot_family:=quantec
+ros2 launch kuka_gazebo gazebo_startup.launch.py robot_model:=kr210_r2700_2 robot_family:=iontec
 ```
 Starting the launch file also starts the `joint_trajectory_controller`, which claims the `position` command interface and `joint_state_broadcaster`. Once Gazebo is launched, the move group server can be started as well, with the `use_sim_time` argument set to True:
 
