@@ -10,17 +10,8 @@ ROS2 Distro | Branch | Github CI
 ## What is included?
 
 - `kuka_resources` contains general, common files. It is copied from [kuka_experimental](https://github.com/ros-industrial/kuka_experimental) and is ported from ROS to ROS2.
-- `kuka_agilus_support` contains urdf, config and mesh files for KUKA Agilus robots, it is copied from [kuka_experimental](https://github.com/ros-industrial/kuka_experimental) and ported to ROS2.
-- `kuka_cybertech_support` contains urdf, config and mesh files for KUKA cybertech robots.
-- `kuka_fortec_support` contains urdf, config and mesh files for KUKA fortec robots.
 - `kuka_iontec_support` contains urdf, config and mesh files for KUKA iontec robots.
-- `kuka_quantec_support` contains urdf, config and mesh files for KUKA quantec robots.
-- `kuka_kl_support` contains urdf, config and mesh files for KUKA KL units.
 - `kuka_kr_moveit_config` contains configuration files for KUKA KR robots necessary for planning with MoveIt.
-- `kuka_lbr_iisy_support` contains urdf, config and mesh files for KUKA iisy robots.
-- `kuka_lbr_iisy_moveit_config` contains configuration files for KUKA LBR iisy robots necessary for planning with MoveIt.
-- `kuka_lbr_iiwa_support` contains urdf, config and mesh files for KUKA LBR iiwa robots
-- `kuka_lbr_iiwa_moveit_config` contains configuration files for KUKA LBR iiwa robots necessary for planning with MoveIt.
 - `kuka_mock_hardware_interface` contains a custom mock hardware interface for KUKA robots
 - `kuka_gazebo` contains a launch file to start Gazebo Ignition and an example moveit + Gazebo implementation
 
@@ -55,7 +46,7 @@ All robots in the xacros are named according to the following pattern:
 
 `{kr/lbr_iisy/lbr_iiwa}{payload}_r{reach}_{version}`,
 
-where `version` is omitted, if the official product name does not contain it. (e.g. KR 120 R3100-2 is named `kr120_r3100_2` and LBR iisy 3 R760 is `lbr_iisy3_r760`)
+where `version` is omitted, if the official product name does not contain it. (e.g. KR 120 R3100-2 is named `kr120_r3100_2`)
 
 The MoveIt configuration packages also contain xacros, that describe the semantic information of the robots: planning groups, default states and link-pairs, for which collision checking should not be done. The default planning group (from `base_link` to `tool0`) is named `manipulator` for all robot arms. An end effector, named `end_effector` is also defined for all robots, which enables visualising end effector paths in `rviz`.
 
@@ -169,41 +160,10 @@ The following table shows what data is verified for each robot in the support pa
 
 |Robot name | Robot family | Transformations | Joint position limits | Joint velocity limits | Joint effort limits | Inertial values | Simplified collision meshes|
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|lbr_iisy3_r760| - | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|lbr_iisy11_r1300| - | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|lbr_iisy15_r930| - | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|lbr_iiwa14_r820| - | ✓ | ✓ | ✓ | | | ✓ |
-|kr4_r600| agilus | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr6_r700_2| agilus | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr6_r700_sixx| agilus | ✓ | ✓ | ✓ | | | ✓ |
-|kr6_r900_2| agilus | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr6_r900_sixx| agilus | ✓ | ✓ | ✓ | | | ✓ |
-|kr10_r900_2| agilus | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr10_r1100_2| agilus | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr8_r1440_2_arc_hw| cybertech | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr8_r2100_2_arc_hw| cybertech | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr12_r1450_3_hw| cybertech | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr16_r1610_2| cybertech | ✓ | ✓ | ✓ | ✓ | | ✓ |
-|kr16_r2010_2| cybertech | ✓ | ✓ | ✓ | ✓ | | ✓ |
-|kr20_r1810_2| cybertech | ✓ | ✓ | ✓ | ✓ | | ✓ |
 |kr20_r3100| iontec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 |kr30_r2100| iontec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 |kr50_r2500| iontec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 |kr70_r2100| iontec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr150_r3100| quantec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr210_r2700_2| quantec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr210_r3100_2| quantec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr210_r3100_ultra| quantec | ✓ | ✓ | ✓ | ✓ | | ✓ |
-|kr210_r3300_2_k| quantec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr240_r2900_2| quantec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr300_r2700_2| quantec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr240_r3330| fortec | ✓ | ✓ | ✓ | ✓ | | ✓ |
-|kr300_r2800_2_mt| fortec | ✓ | ✓ | ✓ | ✓ | | ✓ |
-|kr360_r2830| fortec | ✓ | ✓ | ✓ | ✓ | | ✓ |
-|kr500_r2800_2| fortec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr560_r3100_2| fortec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr600_r2830| fortec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-|kr800_r2800_2| fortec | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 ## Supported features
 
@@ -211,40 +171,10 @@ The following table shows the supported customizable features for each robot in 
 
 |Robot name | Robot family | GPIO support | External axis support | Gazebo support |
 |---|:---:|:---:|:---:|:---:|
-|lbr_iisy3_r760| lbr_iisy | | ✓ | ✓ |
-|lbr_iisy11_r1300| lbr_iisy | | ✓ | ✓ |
-|lbr_iisy15_r930| lbr_iisy | | ✓ | ✓ |
-|lbr_iiwa14_r820| lbr_iiwa | | ✓ | |
-|kr4_r600| agilus | ✓ | ✓ | ✓ |
-|kr6_r700_2| agilus | ✓ | ✓ | ✓ |
-|kr6_r700_sixx| agilus | ✓ | ✓ | |
-|kr6_r900_2| agilus | ✓ | ✓ | ✓ |
-|kr6_r900_sixx| agilus | ✓ | ✓ | |
-|kr10_r900_2| agilus | ✓ | ✓ | ✓ |
-|kr10_r1100_2| agilus | ✓ | ✓ | ✓ |
-|kr8_r1440_2_arc_hw| cybertech | ✓ | ✓ | ✓ |
-|kr8_r2100_2_arc_hw| cybertech | ✓ | ✓ | ✓ |
-|kr12_r1450_3_hw| cybertech | ✓ | ✓ | ✓ |
-|kr16_r1610_2| cybertech | ✓ | ✓ | |
-|kr16_r2010_2| cybertech | ✓ | ✓ | |
-|kr20_r1810_2| cybertech | ✓ | ✓ | |
 |kr20_r3100| iontec | ✓ | ✓ | ✓ |
 |kr30_r2100| iontec | ✓ | ✓ | ✓ |
 |kr50_r2500| iontec | ✓ | ✓ | ✓ |
 |kr70_r2100| iontec | ✓ | ✓ | ✓ |
-|kr210_r2700_2| quantec | ✓ | ✓ | ✓ |
-|kr210_r3100_2| quantec | ✓ | ✓ | ✓ |
-|kr210_r3100_ultra| quantec | ✓ | ✓ | |
-|kr210_r3300_2_k| quantec | ✓ | ✓ | ✓ |
-|kr240_r2900_2| quantec | ✓ | ✓ | ✓ |
-|kr300_r2700_2| quantec | ✓ | ✓ | ✓ |
-|kr240_r3330| fortec | ✓ | ✓ | |
-|kr300_r2800_2_mt| fortec | ✓ | ✓ | ✓ |
-|kr360_r2830| fortec | ✓ | ✓ | |
-|kr500_r2800_2| fortec | ✓ | ✓ | ✓ |
-|kr560_r3100_2| fortec | ✓ | ✓ | ✓ |
-|kr600_r2830| fortec | ✓ | ✓ | ✓ |
-|kr800_r2800_2| fortec | ✓ | ✓ | ✓ |
 
 ## Custom mock hardware
 
